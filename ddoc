@@ -1,0 +1,45 @@
+#!/bin/bash
+#ddoc - (dated document
+#create a new file with name of today's date. 
+#Optional parameters -p: program to automatically open file (must be valid console command); -f: file extension
+
+# Otions 
+while getopts p:f: option
+do
+	case "${option}"
+		in
+		p) PROGRAM=${OPTARG};;
+		f) EXT="."${OPTARG};;
+	esac
+done
+
+#default date format is dd-mm-yyyy
+day="$(date +%d)"
+month="$(date +%m)"
+year="$(date +%Y)"
+
+file=$day"-"$month"-"$year
+
+# If file extension ($EXT) is set create file name with extensio, 
+# if not, # only the file name. 
+if [ ! -n "$EXT" ]
+then
+	file=$file
+else
+	file=$file$EXT
+fi
+# Create the file
+touch $file
+
+# If program ($PROGRAM) is set, open file with that program
+if [ -n "$PROGRAM" ] 
+then comm="$PROGRAM $file"
+	eval $comm
+fi
+
+
+
+#To-Do: 1 - que si ya hay un texto con ese nombre le agregue un (#) 
+#		2 - que sea opcional el argumento de programa y si no lo pones sólo crea el archivo.
+#		3 - que puedas determinar la terminación, también con un argumento opcional y si no el default es .txt
+#		* creo que eso se hace con 'opciones' tipo --vim --txt

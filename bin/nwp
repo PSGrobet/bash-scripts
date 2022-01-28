@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#New Web Project
+#Creates a new folder in the specified location with index.html, styles.css, and app.js files.
+
+#Optionally opens the folder in code editor, default is Code OSS
+
+mkdir $1
+cd $1
+echo Created new folder: 
+pwd 
+touch index.html styles.css app.js
+ls
+
+read -p "Open directory in text editor now? y/n " answer
+if [ $answer == 'y' ]
+then
+	/usr/bin/code .
+	echo Opening in Code OSS...
+else
+	echo Ok, bye
+
+fi
